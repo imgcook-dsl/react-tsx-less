@@ -10,27 +10,24 @@ const data = require('./data');
 
 const vm = new NodeVM({
   console: 'inherit',
-  sandbox: {}
+  sandbox: {},
 });
 
 co(function*() {
   const xtplRender = thunkify(xtpl.render);
-  const code = fs.readFileSync(
-    path.resolve(__dirname, '../src/index.js'),
-    'utf8'
-  );
+  const code = fs.readFileSync(path.resolve(__dirname, '../src/index.js'), 'utf8');
   const renderInfo = vm.run(code)(data, {
     prettier: prettier,
     _: _,
     responsive: {
       width: 750,
-      viewportWidth: 375
+      viewportWidth: 375,
     },
     utils: {
       print: function(value) {
         console.log(value);
-      }
-    }
+      },
+    },
   });
 
   if (renderInfo.noTemplate) {
@@ -39,18 +36,14 @@ co(function*() {
     });
   } else {
     const renderData = renderInfo.renderData;
-    const ret = yield xtplRender(
-      path.resolve(__dirname, '../src/template.xtpl'),
-      renderData,
-      {}
-    );
+    const ret = yield xtplRender(path.resolve(__dirname, '../src/template.xtpl'), renderData, {});
 
     const prettierOpt = renderInfo.prettierOpt || {
-      printWidth: 120
+      printWidth: 120,
     };
 
     const prettierRes = prettier.format(ret, prettierOpt);
 
-    fs.writeFileSync(path.join(__dirname,'../code/result.js'), prettierRes);
+    fs.writeFileSync(path.join(__dirname, '../code/result.js'), prettierRes);
   }
 });
