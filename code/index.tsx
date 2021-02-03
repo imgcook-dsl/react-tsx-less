@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from './style.less';
-interface Page1612337798767Props {}
+interface Page1612349298914Props {}
 const print = function(value) {
   console.log(value);
 };
-const Page1612337798767: React.FC<Page1612337798767Props> = ({}) => {
-  const [state, setState] = useState < Array < any >> [];
+const Page1612349298914: React.FC<Page1612349298914Props> = ({}) => {
+  const [state, setState] = useState([]);
   return (
     <div className={styles.box}>
       {state.data.map((item: any, index: number) => {
@@ -66,4 +66,4 @@ const Page1612337798767: React.FC<Page1612337798767Props> = ({}) => {
     </div>
   );
 };
-export default Page1612337798767;
+export default Page1612349298914;
